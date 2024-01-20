@@ -37,26 +37,96 @@ const myCar: { vehicleId: number, model: string, year: number, buildDate?: Date 
 };
 console.log(myCar);
 
-// Index Signatures: Can define object without defining list of keys
-const myRandomObj: { [index: string]: string | number } = {}; // All keys must be a string and values but of types string OR number.
+// Index Signatures: Can define object without enforcing list of keys
+const myRandomObj: { [index: string]: string | number } = {}; // All keys must be a string, all values must be of types string OR number.
 myRandomObj.id = 1;
 myRandomObj.model = 'Holden';
 console.log(myRandomObj);
 
+// Enums
+
+// Default Enum - indexed from 0 - n
+enum notInitEnum {
+    'North',
+    'South',
+    'East',
+    'West',
+};
+console.log(notInitEnum.North); // Logs 0
+
+// Initialised Enum
+enum InitEnum {
+    North = 'North',
+    South = 'South',
+    East = 'East',
+    West = 'West',
+};
+console.log(InitEnum.North); // Logs `North`
 
 // Typed Functions. (params)
 // ----------------------------
-function  myTypedSumFunc(x: number, y: number) {
+function  myTypedSumFunc(x: number, y: number): number {
     return x + y;
 }
 
-console.log(myTypedSumFunc(5, 4));
+console.log(myTypedSumFunc(5, 4)); // Logs 9
 
-const myTypedMultiplierFuncExpression = (x: number, y: number) => {
+const myTypedMultiplierFuncExpression = (x: number, y: number): number => {
     return x * y;
 };
 
-console.log(myTypedMultiplierFuncExpression(5, 3));
+console.log(myTypedMultiplierFuncExpression(5, 3)); // Logs 15
+
+// Type Aliases & Interfaces
+// -----------------------------
+
+// Type Aliases - assign types to vars (essentially)
+type VehicleId   = number;
+type VehicleName = string;
+
+// Use these type aliases to compose a type-alias for an object literal.
+type Car = {
+    vehicleId  : number,
+    vehicleName: VehicleName,
+};
+
+const myFord: Car = {
+    vehicleId  : 1,
+    vehicleName: 'Ford',
+};
 
 // Interfaces - fully abstract object-structures.
 // Similar in concept to Interfaces in classical OOP.
+// Note: Similar to Type Aliases but only apply to `Object` types.
+interface Rectangle {
+    length: number,
+    width : number,
+};
+
+// Any object that implements interface `Rectangle` must implement the `length` and `width`properties.
+const rectangle: Rectangle = {
+    length: 3,
+    width : 4,
+};
+
+// Polymorphism: Can extend an interface
+interface LaughingRectangle extends Rectangle {
+    tickle: Function,
+};
+
+const myFunnyRectangle: LaughingRectangle = {
+    length: 1,
+    width : 6,
+    tickle: (messages: string[]): void => {
+        messages.forEach(message => console.log(message));
+    },
+};
+myFunnyRectangle.tickle([
+    'Hello',
+    'World',
+    '!',
+]); // Logs each string element in the passed-in string-array.
+
+
+// Casting
+// ------------

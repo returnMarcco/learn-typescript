@@ -9,12 +9,15 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 console.log('Hello, World!');
 console.log('Learning TypeScript');
-// Typed Vars/Data Structures.
+// Typed Vars
+// -------------
 var myInt = 5;
 var myFloat = 7.5;
 var myStr = 'A typed string';
 var myBoolTrue = true;
 var myBoolFalse = false;
+// Data Structures / Special Types
+// ----------------------------------
 var myNumArray = [0, 1, 2, 3, 4];
 var myStrArray = ['return', 'Marcco'];
 var myReadOnlyStrArr = ['test', 'fixed'];
@@ -33,19 +36,62 @@ var myCar = {
     // buildDate is optional
 };
 console.log(myCar);
-// Index Signatures: Can define object without defining list of keys
-var myRandomObj = {}; // All keys must be a string and values but of types string OR number.
+// Index Signatures: Can define object without enforcing list of keys
+var myRandomObj = {}; // All keys must be a string, all values must be of types string OR number.
 myRandomObj.id = 1;
 myRandomObj.model = 'Holden';
 console.log(myRandomObj);
+// Enums
+// Default Enum - indexed from 0 - n
+var notInitEnum;
+(function (notInitEnum) {
+    notInitEnum[notInitEnum["North"] = 0] = "North";
+    notInitEnum[notInitEnum["South"] = 1] = "South";
+    notInitEnum[notInitEnum["East"] = 2] = "East";
+    notInitEnum[notInitEnum["West"] = 3] = "West";
+})(notInitEnum || (notInitEnum = {}));
+;
+console.log(notInitEnum.North); // Logs 0
+// Initialised Enum
+var InitEnum;
+(function (InitEnum) {
+    InitEnum["North"] = "North";
+    InitEnum["South"] = "South";
+    InitEnum["East"] = "East";
+    InitEnum["West"] = "West";
+})(InitEnum || (InitEnum = {}));
+;
+console.log(InitEnum.North); // Logs `North`
 // Typed Functions. (params)
+// ----------------------------
 function myTypedSumFunc(x, y) {
     return x + y;
 }
-console.log(myTypedSumFunc(5, 4));
+console.log(myTypedSumFunc(5, 4)); // Logs 9
 var myTypedMultiplierFuncExpression = function (x, y) {
     return x * y;
 };
-console.log(myTypedMultiplierFuncExpression(5, 3));
-// Interfaces - fully abstract object-structures.
-// Similar in concept to Interfaces in classical OOP.
+console.log(myTypedMultiplierFuncExpression(5, 3)); // Logs 15
+var myFord = {
+    vehicleId: 1,
+    vehicleName: 'Ford',
+};
+;
+// Any object that implements interface `Rectangle` must implement the `length` and `width`properties.
+var rectangle = {
+    length: 3,
+    width: 4,
+};
+;
+var myFunnyRectangle = {
+    length: 1,
+    width: 6,
+    tickle: function (messages) {
+        messages.forEach(function (message) { return console.log(message); });
+    },
+};
+myFunnyRectangle.tickle([
+    'Hello',
+    'World',
+    '!',
+]); // Logs each string element in the passed-in string-array.
