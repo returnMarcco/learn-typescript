@@ -130,3 +130,37 @@ myFunnyRectangle.tickle([
 
 // Casting
 // ------------
+
+
+// Generics
+// ------------
+function myGenericArrayShallowCopier<Type>(arr: Type[], fn?: Function): Type[] {
+    const myArrShallowCopy: Type[] = arr.map(el => el);
+
+    return myArrShallowCopy;
+}
+
+function myGenericNestedArrayFactory<Type>(numOrStringArr: number[] | string[], ...rest: Type[]) : object {
+    return [
+        numOrStringArr,
+        ...rest,
+    ];
+}
+
+const myArrOfNums: number[] = [1, 2, 3, 4, 5];
+const myArrOfStrings: string[] = ['1', '2', '3', '4', '5'];
+
+const myNumCpy = myGenericArrayShallowCopier(myArrOfNums);
+const myStrCpy = myGenericArrayShallowCopier(myArrOfStrings);
+
+console.log(myArrOfNums);
+console.log(myNumCpy);
+
+myArrOfNums[0] = 7;
+
+console.log(myArrOfNums);
+console.log(myNumCpy);
+
+const myMixedArray = myGenericNestedArrayFactory(myArrOfStrings, myArrOfNums, [1, 2, 3, 4], ['Hello, World!']);
+
+console.log(myMixedArray);

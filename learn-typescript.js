@@ -95,3 +95,31 @@ myFunnyRectangle.tickle([
     'World',
     '!',
 ]); // Logs each string element in the passed-in string-array.
+// Casting
+// ------------
+// Generics
+// ------------
+function myGenericArrayShallowCopier(arr, fn) {
+    var myArrShallowCopy = arr.map(function (el) { return el; });
+    return myArrShallowCopy;
+}
+function myGenericArrayFactory(numOrStringArr) {
+    var rest = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        rest[_i - 1] = arguments[_i];
+    }
+    return __spreadArray([
+        numOrStringArr
+    ], rest, true);
+}
+var myArrOfNums = [1, 2, 3, 4, 5];
+var myArrOfStrings = ['1', '2', '3', '4', '5'];
+var myNumCpy = myGenericArrayShallowCopier(myArrOfNums);
+var myStrCpy = myGenericArrayShallowCopier(myArrOfStrings);
+console.log(myArrOfNums);
+console.log(myNumCpy);
+myArrOfNums[0] = 7;
+console.log(myArrOfNums);
+console.log(myNumCpy);
+var myMixedArray = myGenericArrayFactory(myArrOfStrings, myArrOfNums, [1, 2, 3, 4], ['Hello, World!']);
+console.log(myMixedArray);
